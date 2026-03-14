@@ -207,8 +207,8 @@ local function createToggle(name, default, callback)
     end)
 end
 
-createToggle("Auto Health", true, function(val) autoHealth = val end)
-createToggle("Auto Ammo", true, function(val) autoAmmo = val end)
+createToggle("Auto Health", false, function(val) autoHealth = val end)
+createToggle("Auto Ammo", false, function(val) autoAmmo = val end)
 updateSize()
 
 minBtn.MouseButton1Click:Connect(function()
