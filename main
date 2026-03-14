@@ -25,7 +25,7 @@ screenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 screenGui.Parent = PlayerGui
 
 local mainFrame = Instance.new("Frame")
-mainFrame.Size = UDim2.new(0, 220, 0, 0)
+mainFrame.Size = UDim2.new(0, 280, 0, 0)
 mainFrame.Position = UDim2.new(0, 20, 0, 50)
 mainFrame.BackgroundColor3 = Color3.fromRGB(18, 18, 18)
 mainFrame.BorderSizePixel = 0
@@ -37,7 +37,7 @@ mainCorner.CornerRadius = UDim.new(0, 6)
 mainCorner.Parent = mainFrame
 
 local titleBar = Instance.new("Frame")
-titleBar.Size = UDim2.new(1, 0, 0, 32)
+titleBar.Size = UDim2.new(1, 0, 0, 40)
 titleBar.BackgroundColor3 = Color3.fromRGB(10, 10, 10)
 titleBar.BorderSizePixel = 0
 titleBar.ZIndex = 2
@@ -56,25 +56,25 @@ titlePatch.ZIndex = 2
 titlePatch.Parent = titleBar
 
 local titleLabel = Instance.new("TextLabel")
-titleLabel.Size = UDim2.new(1, -70, 1, 0)
-titleLabel.Position = UDim2.new(0, 10, 0, 0)
+titleLabel.Size = UDim2.new(1, -90, 1, 0)
+titleLabel.Position = UDim2.new(0, 12, 0, 0)
 titleLabel.BackgroundTransparency = 1
 titleLabel.Text = "Auto Collect Boosters FFA"
 titleLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
 titleLabel.Font = Enum.Font.GothamBold
-titleLabel.TextSize = 11
+titleLabel.TextSize = 13
 titleLabel.TextXAlignment = Enum.TextXAlignment.Left
 titleLabel.ZIndex = 3
 titleLabel.Parent = titleBar
 
 local minBtn = Instance.new("TextButton")
-minBtn.Size = UDim2.new(0, 24, 0, 22)
-minBtn.Position = UDim2.new(1, -56, 0.5, -11)
+minBtn.Size = UDim2.new(0, 30, 0, 26)
+minBtn.Position = UDim2.new(1, -66, 0.5, -13)
 minBtn.BackgroundColor3 = Color3.fromRGB(60, 60, 60)
 minBtn.Text = "-"
 minBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
 minBtn.Font = Enum.Font.GothamBold
-minBtn.TextSize = 14
+minBtn.TextSize = 16
 minBtn.BorderSizePixel = 0
 minBtn.ZIndex = 3
 minBtn.Parent = titleBar
@@ -84,13 +84,13 @@ minCorner.CornerRadius = UDim.new(0, 4)
 minCorner.Parent = minBtn
 
 local closeBtn = Instance.new("TextButton")
-closeBtn.Size = UDim2.new(0, 24, 0, 22)
-closeBtn.Position = UDim2.new(1, -28, 0.5, -11)
+closeBtn.Size = UDim2.new(0, 30, 0, 26)
+closeBtn.Position = UDim2.new(1, -32, 0.5, -13)
 closeBtn.BackgroundColor3 = Color3.fromRGB(200, 40, 40)
 closeBtn.Text = "X"
 closeBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
 closeBtn.Font = Enum.Font.GothamBold
-closeBtn.TextSize = 11
+closeBtn.TextSize = 13
 closeBtn.BorderSizePixel = 0
 closeBtn.ZIndex = 3
 closeBtn.Parent = titleBar
@@ -123,21 +123,21 @@ UserInputService.InputEnded:Connect(function(input)
 end)
 
 local content = Instance.new("Frame")
-content.Size = UDim2.new(1, -20, 0, 0)
-content.Position = UDim2.new(0, 10, 0, 40)
+content.Size = UDim2.new(1, -24, 0, 0)
+content.Position = UDim2.new(0, 12, 0, 48)
 content.BackgroundTransparency = 1
 content.Parent = mainFrame
 
 local listLayout = Instance.new("UIListLayout")
-listLayout.Padding = UDim.new(0, 5)
+listLayout.Padding = UDim.new(0, 7)
 listLayout.FillDirection = Enum.FillDirection.Vertical
 listLayout.SortOrder = Enum.SortOrder.LayoutOrder
 listLayout.Parent = content
 
 local function updateSize()
     local h = listLayout.AbsoluteContentSize.Y
-    content.Size = UDim2.new(1, -20, 0, h)
-    mainFrame.Size = UDim2.new(0, 220, 0, h + 50)
+    content.Size = UDim2.new(1, -24, 0, h)
+    mainFrame.Size = UDim2.new(0, 280, 0, h + 62)
 end
 listLayout:GetPropertyChangedSignal("AbsoluteContentSize"):Connect(updateSize)
 
@@ -149,30 +149,30 @@ end
 
 local function createToggle(name, default, callback)
     local row = Instance.new("Frame")
-    row.Size = UDim2.new(1, 0, 0, 32)
+    row.Size = UDim2.new(1, 0, 0, 42)
     row.BackgroundColor3 = Color3.fromRGB(26, 26, 26)
     row.BorderSizePixel = 0
     row.LayoutOrder = nextOrder()
     row.Parent = content
 
     local rowCorner = Instance.new("UICorner")
-    rowCorner.CornerRadius = UDim.new(0, 5)
+    rowCorner.CornerRadius = UDim.new(0, 6)
     rowCorner.Parent = row
 
     local nameLabel = Instance.new("TextLabel")
     nameLabel.Size = UDim2.new(0.6, 0, 1, 0)
-    nameLabel.Position = UDim2.new(0, 10, 0, 0)
+    nameLabel.Position = UDim2.new(0, 12, 0, 0)
     nameLabel.BackgroundTransparency = 1
     nameLabel.Text = name
     nameLabel.TextColor3 = Color3.fromRGB(220, 220, 220)
     nameLabel.Font = Enum.Font.Gotham
-    nameLabel.TextSize = 12
+    nameLabel.TextSize = 15
     nameLabel.TextXAlignment = Enum.TextXAlignment.Left
     nameLabel.Parent = row
 
     local toggleBg = Instance.new("Frame")
-    toggleBg.Size = UDim2.new(0, 34, 0, 18)
-    toggleBg.Position = UDim2.new(1, -44, 0.5, -9)
+    toggleBg.Size = UDim2.new(0, 44, 0, 22)
+    toggleBg.Position = UDim2.new(1, -54, 0.5, -11)
     toggleBg.BackgroundColor3 = default and Color3.fromRGB(0, 162, 255) or Color3.fromRGB(55, 55, 55)
     toggleBg.BorderSizePixel = 0
     toggleBg.Parent = row
@@ -182,8 +182,8 @@ local function createToggle(name, default, callback)
     bgCorner.Parent = toggleBg
 
     local knob = Instance.new("Frame")
-    knob.Size = UDim2.new(0, 12, 0, 12)
-    knob.Position = default and UDim2.new(1, -15, 0.5, -6) or UDim2.new(0, 3, 0.5, -6)
+    knob.Size = UDim2.new(0, 16, 0, 16)
+    knob.Position = default and UDim2.new(1, -19, 0.5, -8) or UDim2.new(0, 3, 0.5, -8)
     knob.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
     knob.BorderSizePixel = 0
     knob.Parent = toggleBg
@@ -202,7 +202,7 @@ local function createToggle(name, default, callback)
     btn.MouseButton1Click:Connect(function()
         state = not state
         toggleBg.BackgroundColor3 = state and Color3.fromRGB(0, 162, 255) or Color3.fromRGB(55, 55, 55)
-        knob.Position = state and UDim2.new(1, -15, 0.5, -6) or UDim2.new(0, 3, 0.5, -6)
+        knob.Position = state and UDim2.new(1, -19, 0.5, -8) or UDim2.new(0, 3, 0.5, -8)
         callback(state)
     end)
 end
@@ -215,7 +215,7 @@ minBtn.MouseButton1Click:Connect(function()
     minimized = not minimized
     content.Visible = not minimized
     if minimized then
-        mainFrame.Size = UDim2.new(0, 220, 0, 32)
+        mainFrame.Size = UDim2.new(0, 280, 0, 40)
     else
         updateSize()
     end
@@ -226,14 +226,12 @@ closeBtn.MouseButton1Click:Connect(function()
     screenGui:Destroy()
 end)
 
--- Main Loop
 connection = RunService.RenderStepped:Connect(function()
     local character = Player.Character
     if not character then return end
     local hrp = character:FindFirstChild("HumanoidRootPart")
     if not hrp then return end
 
-    -- sine wave offset so drops bounce up and down constantly
     local t = tick()
     local bounce = math.sin(t * 10) * 2.5
 
