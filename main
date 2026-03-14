@@ -1,46 +1,3 @@
--- AC Bypass
-pcall(function()
-    local replicatedFirst = game:GetService("ReplicatedFirst")
-    local replicatedStorage = game:GetService("ReplicatedStorage")
-    local starterGui = game:GetService("StarterGui")
-
-    for _, child in pairs(replicatedFirst:GetDescendants()) do
-        if child:IsA("LocalScript") or child:IsA("ModuleScript") then
-            pcall(function() child.Enabled = false end)
-            pcall(function() child:Destroy() end)
-        end
-    end
-
-    local targets = {"AnalyticsPipelineController","AntiCheat","AC","Anticheat","Detection","SecurityManager","Detector"}
-    for _, service in pairs({replicatedFirst, replicatedStorage, starterGui}) do
-        for _, name in pairs(targets) do
-            local obj = service:FindFirstChild(name, true)
-            if obj then pcall(function() obj:Destroy() end) end
-        end
-    end
-
-    local mt = getrawmetatable(game)
-    if mt then
-        local old = mt.__newindex
-        setreadonly(mt, false)
-        mt.__newindex = function(self, key, value)
-            if type(value) == "userdata" then
-                pcall(function()
-                    if value:IsA("LocalScript") and
-                       (value.Name:lower():find("anti") or value.Name:lower():find("cheat") or
-                        value.Name:lower():find("detect") or value.Name:lower():find("analytics")) then
-                        value.Enabled = false
-                        value:Destroy()
-                        return
-                    end
-                end)
-            end
-            return old(self, key, value)
-        end
-        setreadonly(mt, true)
-    end
-end)
-
 -- Services
 local Players = game:GetService("Players")
 local RunService = game:GetService("RunService")
@@ -79,7 +36,6 @@ local mainCorner = Instance.new("UICorner")
 mainCorner.CornerRadius = UDim.new(0, 6)
 mainCorner.Parent = mainFrame
 
--- Title Bar
 local titleBar = Instance.new("Frame")
 titleBar.Size = UDim2.new(1, 0, 0, 32)
 titleBar.BackgroundColor3 = Color3.fromRGB(10, 10, 10)
@@ -111,7 +67,6 @@ titleLabel.TextXAlignment = Enum.TextXAlignment.Left
 titleLabel.ZIndex = 3
 titleLabel.Parent = titleBar
 
--- Minimize Button
 local minBtn = Instance.new("TextButton")
 minBtn.Size = UDim2.new(0, 24, 0, 22)
 minBtn.Position = UDim2.new(1, -56, 0.5, -11)
@@ -128,7 +83,6 @@ local minCorner = Instance.new("UICorner")
 minCorner.CornerRadius = UDim.new(0, 4)
 minCorner.Parent = minBtn
 
--- Close Button
 local closeBtn = Instance.new("TextButton")
 closeBtn.Size = UDim2.new(0, 24, 0, 22)
 closeBtn.Position = UDim2.new(1, -28, 0.5, -11)
@@ -145,7 +99,6 @@ local closeCorner = Instance.new("UICorner")
 closeCorner.CornerRadius = UDim.new(0, 4)
 closeCorner.Parent = closeBtn
 
--- Dragging
 local dragging, dragStart, startPos
 titleBar.InputBegan:Connect(function(input)
     if input.UserInputType == Enum.UserInputType.MouseButton1 then
@@ -169,7 +122,6 @@ UserInputService.InputEnded:Connect(function(input)
     end
 end)
 
--- Content
 local content = Instance.new("Frame")
 content.Size = UDim2.new(1, -20, 0, 0)
 content.Position = UDim2.new(0, 10, 0, 40)
@@ -195,7 +147,6 @@ local function nextOrder()
     return orderIndex
 end
 
--- Toggle
 local function createToggle(name, default, callback)
     local row = Instance.new("Frame")
     row.Size = UDim2.new(1, 0, 0, 32)
@@ -260,7 +211,6 @@ createToggle("Auto Health", true, function(val) autoHealth = val end)
 createToggle("Auto Ammo", true, function(val) autoAmmo = val end)
 updateSize()
 
--- Minimize
 minBtn.MouseButton1Click:Connect(function()
     minimized = not minimized
     content.Visible = not minimized
@@ -271,13 +221,11 @@ minBtn.MouseButton1Click:Connect(function()
     end
 end)
 
--- Close
 closeBtn.MouseButton1Click:Connect(function()
     if connection then connection:Disconnect() end
     screenGui:Destroy()
 end)
 
--- Logic
 connection = RunService.RenderStepped:Connect(function()
     local character = Player.Character
     if not character then return end
