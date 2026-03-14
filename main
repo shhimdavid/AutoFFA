@@ -238,18 +238,22 @@ closeBtn.MouseButton1Click:Connect(function()
     screenGui:Destroy()
 end)
 
-connection = RunService.RenderStepped:Connect(function()
+-- Logic
+local t = 0
+connection = RunService.RenderStepped:Connect(function(dt)
     local character = Player.Character
     if not character then return end
     local hrp = character:FindFirstChild("HumanoidRootPart")
     if not hrp then return end
 
-    local bounce = math.sin(tick() * 10) * 2.5
+    t = t + dt * 8
+    local bounce = math.sin(t) * 4
 
     for _, obj in workspace:GetChildren() do
         if obj.Name == "_drop" and obj:IsA("BasePart") then
             if (autoAmmo and obj:FindFirstChild("Ammo")) or
                (autoHealth and obj:FindFirstChild("Health")) then
+                obj.Anchored = true
                 obj.CFrame = CFrame.new(hrp.Position + Vector3.new(0, bounce, 0))
             end
         end
