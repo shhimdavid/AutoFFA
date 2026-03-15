@@ -232,16 +232,6 @@ createToggle("Auto Health", true, function(val) autoHealth = val end)
 createToggle("Auto Ammo", true, function(val) autoAmmo = val end)
 createToggle("Auto Respawn", true, function(val) autoRespawn = val end)
 
-local disclaimer = Instance.new("TextLabel")
-disclaimer.Size = UDim2.new(1, 0, 0, 40)
-disclaimer.BackgroundTransparency = 1
-disclaimer.Text = "Stay near the map — boosters tween to you, flying far slows collection."
-disclaimer.TextColor3 = Color3.fromRGB(90, 90, 90)
-disclaimer.Font = Enum.Font.Gotham
-disclaimer.TextSize = 11
-disclaimer.TextWrapped = true
-disclaimer.LayoutOrder = nextOrder()
-disclaimer.Parent = content
 
 updateSize()
 
